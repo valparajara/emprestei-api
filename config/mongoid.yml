@@ -88,9 +88,7 @@ development:
 test:
   sessions:
     default:
-      database: emprestei_api_test
-      hosts:
-        - localhost:27017
+      uri: mongodb://localhost:27017/emprestei_api_test
       options:
         read: primary
         # In the test environment we lower the retries and retry interval to
