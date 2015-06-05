@@ -12,6 +12,8 @@ class Loan
 
   before_save :check_if_return_lent
 
+  embedded_in :user
+
   private
 
   def check_if_return_lent
