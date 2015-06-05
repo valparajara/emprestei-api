@@ -10,9 +10,11 @@ class Loan
   validates :email, presence: true
   validates :item_lent, presence: true
 
+  before_save :check_if_return_lent
+
   private
 
-  def check_if_return_lent?
+  def check_if_return_lent
     if returned_changed?
       self.returned_at = Date.today
     end
