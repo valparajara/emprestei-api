@@ -13,9 +13,6 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'mongoid'
 gem 'bson_ext'
 
-# Responders
-gem 'responders'
-
 # Serializers
 gem 'active_model_serializers', '~> 0.8.0'
 
