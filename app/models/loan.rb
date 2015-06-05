@@ -4,7 +4,17 @@ class Loan
 
   field :email, type: String
   field :item_lent, type: String
+  field :returned, type: Boolean
+  field :returned_at, type: Date
 
   validates :email, presence: true
   validates :item_lent, presence: true
+
+  private
+
+  def check_if_return_lent?
+    if returned_changed?
+      self.returned_at = Date.today
+    end
+  end
 end
