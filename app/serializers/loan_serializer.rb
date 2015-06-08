@@ -1,5 +1,5 @@
 class LoanSerializer < ActiveModel::Serializer
-  attributes :id, :email, :item_lent
+  attributes :id, :email, :loaned_item
 
   def id
     object.id.to_s
