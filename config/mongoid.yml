@@ -95,3 +95,8 @@ test:
         # low amounts for fast failures.
         max_retries: 1
         retry_interval: 0
+
+production:
+  sessions:
+    default:
+      uri: <%= ENV["MONGOLAB_URI"] || ENV["MONGOHQ_URL"] || "mongodb://localhost:27017/emprestei_api_product
