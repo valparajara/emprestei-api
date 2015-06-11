@@ -1,15 +1,28 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  include ActiveModel::SecurePassword
+
+  has_secure_password
 
   field :email,              type: String, default: ""
-  field :crypted_password,   type: String, default: ""
-  field :token_acesso,       type: Integer
-
-  field :reset_password_token,   type: String
-  field :reset_password_sent_at, type: Time
+  field :acess_token,        type: Integer
+  field :password_digest,    type: String
 
   embeds_many :loans
 
-  validates :email, presence: true, uniqueness: true
+  VALID_EMAIL_FORMAT= /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+
+  validates :email, presence: true, length: {maximum: 100}, format: { with: VALID_EMAIL_FORMAT}, uniqueness: true
+
+  before_validation { self.email = email.downcase.strip if email.present? }
+
+  class << self
+
+    def auth_user(params)
+      user = User.where(email: params[:email]).first
+      user.authenticate(params[:password]) if user.present?
+    end
+  end
+
 end

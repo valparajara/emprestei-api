@@ -5,6 +5,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :user, only: [:create, :show]
+
+  post '/sign_in', to: "authentication#sign_in"
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
