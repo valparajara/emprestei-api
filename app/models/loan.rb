@@ -2,12 +2,14 @@ class Loan
   include Mongoid::Document
   include Mongoid::Timestamps::Created
 
-  field :email, type: String
+  field :friend_email, type: String
+  field :friend_name, type: String
   field :loaned_item, type: String
+
   field :returned, type: Mongoid::Boolean
   field :returned_at, type: Date
 
-  validates :email, presence: true
+  validates :friend_email, presence: true
   validates :loaned_item, presence: true
 
   before_save :check_if_return_lent

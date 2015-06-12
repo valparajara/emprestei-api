@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :loan do
 
-    sequence(:email) { |n| "teste#{n}@email.com" }
+    sequence(:friend_email) { |n| "teste#{n}@email.com" }
+    friend_name 'Nome do Amigo'
     loaned_item 'Livro Emprestado'
 
     trait :returned do
