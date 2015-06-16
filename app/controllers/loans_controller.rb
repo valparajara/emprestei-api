@@ -1,8 +1,9 @@
 class LoansController < ApplicationController
+  before_action :token_authenticate
   before_action :set_loan, only: [:show, :update]
 
   def index
-    loans = Loan.all
+    loans = @current_user.loans
 
     respond_to do |format|
       format.json { render json: loans, root: false }
@@ -17,7 +18,7 @@ class LoansController < ApplicationController
 
   # POST /loans.json
   def create
-    @loan = Loan.new(loan_params)
+    @loan = @current_user.loans.build(loan_params)
 
     respond_to do |format|
       if @loan.save
@@ -28,7 +29,7 @@ class LoansController < ApplicationController
     end
   end
 
-  # PATCH/PUT /loans/1.json
+  # PATCH/PUT /loans/1?access_token
   def update
     respond_to do |format|
       if @loan.update_attributes(loan_params)
@@ -50,7 +51,7 @@ class LoansController < ApplicationController
 
   private
     def set_loan
-      @loan = Loan.find(params[:id])
+      @loan = @current_user.loans.find(params[:id])
     end
 
     def loan_params

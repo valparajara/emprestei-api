@@ -20,31 +20,6 @@ class AuthenticationController < ApplicationController
     end
   end
 
-  private
-
-  def token_authenticate
-
-    unless params[:access_token].present?
-      not_authenticated
-      return
-    end
-
-    user = User.find_by(access_token: params[:access_token])
-
-    if user.nil?
-      not_authenticated
-      return
-    else
-      @current_user = user
-    end
-  end
-
-  def not_authenticated
-    respond_to do |format|
-      format.json { render json: {}, status: :unauthorized }
-    end
-  end
-
   protected
 
   def user_params
