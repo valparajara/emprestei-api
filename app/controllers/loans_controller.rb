@@ -55,6 +55,6 @@ class LoansController < ApplicationController
     end
 
     def loan_params
-      params.require(:loan).permit(:_id, :friend_email, :friend_name, :loaned_item, :created_at, :returned, :returned_at)
+      params.require(:loan).permit(:_id, :friend_email, :friend_name, :loaned_item, :created_at, :returned, :returned_at, :notification)
     end
 end

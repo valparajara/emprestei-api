@@ -5,6 +5,7 @@ class Loan
   field :friend_email, type: String
   field :friend_name, type: String
   field :loaned_item, type: String
+  field :notification, type: Integer, default: 1
 
   field :returned, type: Mongoid::Boolean
   field :returned_at, type: Date
