@@ -3,7 +3,7 @@ class LoansController < ApplicationController
   before_action :set_loan, only: [:show, :update]
 
   def index
-    loans = @current_user.loans
+    loans = @current_user.loans.order(created_at: :desc)
 
     respond_to do |format|
       format.json { render json: loans, root: false }
@@ -55,6 +55,6 @@ class LoansController < ApplicationController
     end
 
     def loan_params
-      params.require(:loan).permit(:_id, :friend_email, :friend_name, :loaned_item, :created_at, :returned, :returned_at, :notification)
+      params.require(:loan).permit(:_id, :friend_email, :friend_name, :loaned_item, :created_at, :returned, :returned_at, :notification, :updated_at)
     end
 end
