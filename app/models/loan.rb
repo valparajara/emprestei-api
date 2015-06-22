@@ -1,6 +1,6 @@
 class Loan
   include Mongoid::Document
-  include Mongoid::Timestamps::Created
+  include Mongoid::Timestamps
 
   field :friend_email, type: String
   field :friend_name, type: String
