@@ -6,7 +6,8 @@ class LoansController < ApplicationController
   before_action :set_loan, only: [:show, :update]
 
   def index
-    loans = @current_user.loans.order(created_at: :desc)
+
+    loans = @current_user.loans.where(returned: nil).order(created_at: :desc)
 
     respond_to do |format|
       format.json { render json: loans, root: false }
