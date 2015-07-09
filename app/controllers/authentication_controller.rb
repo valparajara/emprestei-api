@@ -20,6 +20,20 @@ class AuthenticationController < ApplicationController
     end
   end
 
+  def logout
+     respond_to do |format|
+      format.json do
+        if @current_user.present?
+          @current_user.destroy_token
+          render json: { }
+        else
+          render json: { }, status: :unauthorized
+        end
+      end
+    end
+
+  end
+
   protected
 
   def user_params

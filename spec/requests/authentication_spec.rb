@@ -35,4 +35,18 @@ describe AuthenticationController do
       end
     end
   end
+
+  describe "DELETE /logout" do
+    context "when logged" do
+      let(:user) {create :user, :access_token}
+
+      it "want I logout" do
+        delete logout_path(format: :json), access_token: user.access_token
+
+        expect(response.status).to eq(200)
+        user.reload
+        expect(user.access_token).to be_blank
+      end
+    end
+  end
 end

@@ -6,7 +6,7 @@ class User
   has_secure_password
 
   field :email,              type: String, default: ""
-  field :access_token,        type: String
+  field :access_token,       type: String
   field :password_digest,    type: String
 
   embeds_many :loans
@@ -32,4 +32,8 @@ class User
     self.access_token = auth_token
   end
 
+  def destroy_token
+    self.access_token = ""
+    self.save
+  end
 end
