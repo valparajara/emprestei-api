@@ -27,6 +27,8 @@ describe LoansController do
       end
 
       context "that is valid" do
+        let(:loan) { user.loans.last }
+
         it "return a 200 status" do
           get loans_path, format: :json, access_token: user.access_token
 
@@ -36,6 +38,12 @@ describe LoansController do
           get loans_path, format: :json, access_token: user.access_token
 
           expect(response.body).to eq(loan_serialized.to_json(root: false))
+        end
+        it "return list items lents been que have not returned" do
+          loan.update_attributes(returned: true)
+          get loans_path, format: :json, access_token: user.access_token
+
+          expect(response.body).to_not include(loan.to_json(root: false))
         end
       end
     end
@@ -57,7 +65,7 @@ describe LoansController do
       end
 
       context "when passing an access token valid" do
-        let(:loan_serialized) { LoanSerializer.new(user.loans.last).to_json }
+        let(:loan_serialized) { LoanSerializer.new(user.loans.order(created_at: :asc).last).to_json(root: false) }
 
         context "and I create without the required fields" do
           let(:loan) { Loan.new }
@@ -77,7 +85,7 @@ describe LoansController do
         end
 
         context "and I create with the required fields" do
-          subject(:loan) { user.loans.build(friend_email: "teste@teste.com", loaned_item: "Emprestimo teste") }
+          subject(:loan) { user.loans.build(friend_email: "teste@teste.com", loaned_item: "Emprestimo teste", friend_name: "", notification: 2) }
 
           it "returns a 200 status" do
             post loans_path, format: :json, loan: loan.as_json, access_token: user.access_token
@@ -88,6 +96,7 @@ describe LoansController do
           it "returns the loan serialized" do
             post loans_path, format: :json, loan: loan.as_json, access_token: user.access_token
 
+            user.reload
             expect(response.body).to eq(loan_serialized)
           end
         end

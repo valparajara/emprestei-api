@@ -7,7 +7,7 @@ class LoansController < ApplicationController
 
   def index
 
-    loans = @current_user.loans.where(returned: nil).order(created_at: :desc)
+    loans = @current_user.loans.where(returned: nil)
 
     respond_to do |format|
       format.json { render json: loans, root: false }
@@ -26,14 +26,14 @@ class LoansController < ApplicationController
 
     respond_to do |format|
       if @loan.save
-        format.json { render json: @loan }
+        format.json { render json: @loan, root: false }
       else
         format.json { render json: @loan.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /loans/1?access_token
+  # PATCH/PUT /loans/1.json?access_token
   def update
     respond_to do |format|
       if @loan.update_attributes(loan_params)
@@ -59,6 +59,6 @@ class LoansController < ApplicationController
     end
 
     def loan_params
-      params.require(:loan).permit(:_id, :friend_email, :friend_name, :loaned_item, :created_at, :returned, :returned_at, :notification, :updated_at)
+      params.require(:loan).permit(:friend_email, :friend_name, :loaned_item, :notification, )
     end
 end
