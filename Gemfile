@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+ gem 'rails', '5.1.4'
 
 #MongoDB
 gem 'mongoid'
@@ -37,7 +37,7 @@ group :development, :test do
 
   # RSpec, factory
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
 end
 
 group :test do
